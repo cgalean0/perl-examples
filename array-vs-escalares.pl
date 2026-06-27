@@ -35,3 +35,18 @@ print "$anarr" . "\n"; #Imprime la direccion de [1,2,3]
 print "$$anarr[2]" . "\n"; # 3
 print "@$anarr" . "\n"; # Acceso al arr (1,2,3).
 print "size of anarr => " . scalar(@$anarr) . "\n";
+
+# ====================================
+# Cuando usar uno u el otro 
+# ====================================
+
+my $arrsc  = [1,2,3];
+my $arrsc2 = [4,5,6];
+my @arr1   = (1,2,3);
+my @arr2   = (4,5,6);
+
+print "@arr1 @arr2 \n"; # Imprime los dos arreglos juntos
+print "$arrsc $arrsc2 \n"; # Imprime la referencia a cada arreglo,
+                           # Permitiendo tener mejor manejo de los mismos.
+
+
