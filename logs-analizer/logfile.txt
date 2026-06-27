@@ -1,0 +1,34 @@
+[2026-06-27 08:00:15.124] [INFO] [main] org.unrc.api.AppLauncher - Starting Argos Orders API v3.1.0 on ArchLinux with PID 18432
+[2026-06-27 08:00:16.402] [INFO] [main] org.unrc.api.config.RedisConfig - Redis cache initialized successfully at 127.0.0.1:6379
+[2026-06-27 08:00:17.881] [INFO] [main] org.unrc.api.config.RabbitMQConfig - Broker connected. Exchange 'orders.exchange' bound to queue 'orders.queue'
+[2026-06-27 08:05:00.003] [INFO] [cron-task-1] org.unrc.api.service.InventoryService - Executing scheduled inventory reconciliation...
+[2026-06-27 08:05:02.450] [INFO] [cron-task-1] org.unrc.api.service.InventoryService - Reconciliation completed. 0 discrepancies found.
+[2026-06-27 08:12:34.892] [INFO] [http-nio-8080-exec-1] org.unrc.api.controller.OrderController - POST /api/v1/orders - User: ngaleano - Payload: {items: [1042, 3081], total: 15400.00}
+[2026-06-27 08:12:35.102] [INFO] [http-nio-8080-exec-1] org.unrc.api.service.OrderService - Order ORD-99281 created successfully in 210ms.
+[2026-06-27 08:20:11.314] [WARN] [http-nio-8080-exec-4] org.unrc.api.repository.ProductRepository - SQL Query execution time exceeded threshold (1200ms): SELECT * FROM products p WHERE p.status = 'ACTIVE' AND p.category_id = 5;
+[2026-06-27 08:25:40.015] [WARN] [http-nio-8080-exec-7] org.unrc.api.client.PaymentGatewayClient - Connection timeout invoking https://api.gate.payment/v2/charge. Retrying connection (1/3)...
+[2026-06-27 08:25:42.020] [WARN] [http-nio-8080-exec-7] org.unrc.api.client.PaymentGatewayClient - Connection timeout invoking https://api.gate.payment/v2/charge. Retrying connection (2/3)...
+[2026-06-27 08:25:44.025] [ERROR] [http-nio-8080-exec-7] org.unrc.api.controller.GlobalExceptionHandler - Payment processing failed for User: admin_root. Request URL: /api/v1/payments/checkout
+org.unrc.api.exception.GatewayIntegrationException: Remote payment provider failed to respond within 2000ms.
+    at org.unrc.api.client.PaymentGatewayClient.executeCharge(PaymentGatewayClient.java:84)
+    at org.unrc.api.service.PaymentService.processCheckout(PaymentService.java:42)
+    at org.unrc.api.controller.PaymentController.checkout(PaymentController.java:29)
+    at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+    at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+[2026-06-27 08:30:01.002] [INFO] [http-nio-8080-exec-9] org.unrc.api.controller.AuthController - POST /api/v1/auth/login - Attempting authentication for user: test_user
+[2026-06-27 08:30:01.412] [WARN] [http-nio-8080-exec-9] org.unrc.api.service.AuthService - Bad credentials provided for user: test_user. HTTP 401 Unauthorized.
+[2026-06-27 08:44:12.711] [ERROR] [http-nio-8080-exec-12] org.unrc.api.repository.DatabaseConnectionPool - HikariPool-1 - Connection is not available, request timed out after 30000ms.
+[2026-06-27 08:44:12.715] [ERROR] [http-nio-8080-exec-12] org.unrc.api.controller.GlobalExceptionHandler - Database connection failure on GET /api/v1/dashboard/metrics
+jakarta.persistence.PersistenceException: org.hibernate.exception.JDBCConnectionException: unable to obtain JDBC Connection
+    at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:101)
+    at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:375)
+    at org.unrc.api.repository.MetricsRepository.getAggregatedData(MetricsRepository.java:114)
+Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+    at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:213)
+    at com.zaxxer.hikari.pool.HikariDataSource.getConnection(HikariDataSource.java:100)
+[2026-06-27 08:44:15.002] [WARN] [http-nio-8080-exec-15] org.unrc.api.service.OrderService - Thread deadlock suspected. Order verification queue is backing up. Current size: 142 items.
+[2026-06-27 08:45:00.118] [FATAL] [memory-monitor] org.unrc.api.util.EmergencyShutdown - Critical system failure detected. Resource exhaustion imminent.
+[2026-06-27 08:45:00.120] [FATAL] [memory-monitor] java.lang.OutOfMemoryError: Java heap space
+Dumping heap to java_pid18432.hprof ...
+Heap dump file created [1073741824 bytes in 2.144 secs]
+[2026-06-27 08:45:02.268] [INFO] [main] org.unrc.api.AppLauncher - Process terminated gracefully with exit code 137 (OOM Killed).
