@@ -1,5 +1,10 @@
 #!/usr/bin/perl
 
+package SomeExamples;
+
+use stricts;
+use warnings;
+
 my $linea = "100 usuarios activos\n";
 my $factor = 2;
 
@@ -21,7 +26,7 @@ print "Valor de B: ".$b. "\n";
 # Copia de valores de arreglos
 my @arr  = (1,2,3);
 my @arr2 = @arr;
-print $arr2."\n";
+print "@arr2"."\n";
 
 print "@arr2"."\n";
 print "-----------------------\n";

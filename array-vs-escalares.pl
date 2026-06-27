@@ -2,6 +2,11 @@
 # Arrays vs Escalares
 # ====================================
 
+package ArraysVsScalars;
+
+use strict;
+use warnings;
+
 # Siempre DEPENDE del contexto en que estamos.
 my @arr  = (1,2,3);
 my $size = @arr;  # alamacena la cantidad de elementos de arr.
